@@ -76,7 +76,7 @@ void SaveToFile(){
 void LoadToFile(){
 	FILE *fp = fopen("record.txt", "r");
 	if(fp == NULL){
-		printf("Error opening file...\n");
+		printf("Please create a file\n");
 		return;
 	}
 	
@@ -208,7 +208,9 @@ void ViewContact(){
 		return;
 	}
 	
+	printf("-----------------------------------------------\n");
 	printf("Saved Contacts:\n");
+	printf("\n");
 	int i;
 	for(i=0 ; i<count ; i++){
 		printf("%d. %s\n", i+1, con[i].name);
@@ -217,6 +219,7 @@ void ViewContact(){
 		printf("Address is %s\n", con[i].address);
 		printf("\n");
 	}
+	printf("-----------------------------------------------\n");
 	printf("\n");
 }
 
@@ -274,3 +277,4 @@ void SearchContact(){
 	}
 	printf("-----------------------------------------------\n");
 }
+
