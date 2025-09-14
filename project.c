@@ -4,7 +4,7 @@
 
 struct contact{
 	char name[50];
-	char phone[15];
+	char phone[20];
 	char email[50];
 	char address[100];
 }con[100];
@@ -30,7 +30,7 @@ int main(){
 	
 	printf("Menu:\n");
 	printf("1. Add Contact\n");
-	printf("2. Update Existing Contact:\n");
+	printf("2. Update Existing Contact\n");
 	printf("3. View Contact\n");
 	printf("4. Delete Contact\n");
 	printf("5. Search Contact\n");
@@ -124,6 +124,7 @@ void AddContact(){
 	con[count].address [strcspn(con[count].address, "\n")] = 0;
 	
 	count++;
+	printf("\n");
 	printf("Contact Successfully Added...\n");
 	printf("\n");
 	
@@ -143,7 +144,7 @@ void UpdateContact(){
 	int index, choice;
 	printf("Enter the number of contact to update:");
 	scanf("%d", &index);
-	getchar;
+	getchar();
 	
 	index--;
 	
@@ -270,11 +271,10 @@ void SearchContact(){
 			found = 1;
 			break;
 		}
-		else{
-			printf("Contact Not Found...\n");
-			break;
-		}
 	}
+	 	
+	 	if (!found){
+	 		printf("Contact not found...\n");
+		 }
 	printf("-----------------------------------------------\n");
 }
-
