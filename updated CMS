@@ -34,7 +34,9 @@ int isValidEmail(char *email) {
 int isValidPhone(char *phone) {
 	int i;
 	for(i=0; phone[i]; i++){
-		if(phone[i]<'0' || phone[i]>'9') return 0;
+		if(phone[i]<'0' || phone[i]>'9'){
+			return 0;
+		} 
 	}
 	return (i>0);
 }
@@ -52,6 +54,13 @@ void ensureCapacity() {
 }
 
 
+int toLowerChar(char c) {
+    if(c >= 'A' && c <= 'Z') {
+        return c + 32;
+    }
+    return c;
+}
+
 int contains(char str[50], char substr[50]){
     int lenStr = strlen(str);
     int lenSub = strlen(substr);
@@ -59,7 +68,7 @@ int contains(char str[50], char substr[50]){
     for(i = 0; i <= lenStr - lenSub; i++){
         int match = 1;
         for(j = 0; j < lenSub; j++){
-            if(str[i + j] != substr[j]){
+            if(toLowerChar(str[i + j]) != toLowerChar(substr[j])){
                 match = 0;
                 break;
             }
@@ -167,14 +176,18 @@ void AddContact(){
 		printf("Enter Phone Number:");
 		fgets(con[count].phone,sizeof(con[count].phone),stdin);
 		con[count].phone[strcspn(con[count].phone,"\n")]=0;
-		if(!isValidPhone(con[count].phone)) printf("Invalid phone! Try again.\n");
+		if(!isValidPhone(con[count].phone)) {
+			printf("Invalid phone! Try again.\n");
+		}
 	}while(!isValidPhone(con[count].phone));
 	
 	do{
 		printf("Enter Email:");
 		fgets(con[count].email,sizeof(con[count].email),stdin);
 		con[count].email[strcspn(con[count].email,"\n")]=0;
-		if(!isValidEmail(con[count].email)) printf("Invalid email! Must contain '@'. Try again.\n");
+		if(!isValidEmail(con[count].email)) {
+			printf("Invalid email! Must contain '@'. Try again.\n");
+		}
 	}while(!isValidEmail(con[count].email));
 	
 	printf("Enter Address:");
@@ -321,6 +334,7 @@ void SearchContact(){
 	int found = 0;
 	for(i = 0 ; i < count ; i++){
 		if (contains(con[i].name, SearchName)){
+			printf("\n");
 			printf("Contact Found! \n");
 			printf("\n");
 			printf("Name : %s\n", con[i].name);
