@@ -124,30 +124,30 @@ void SaveToFile(){
 void LoadToFile(){
 	FILE *fp = fopen("record.txt", "r");
 	if(fp == NULL){
-		printf("Please create a file\n");
+		printf("You do not have any contacts saved...\n");
 		return;
 	}
-	
-	count=0;
-	char buffer[200];
+
+	count = 0;
 	int i;
-	while(fgets(buffer,sizeof(buffer),fp)){
+	while(1){
 		ensureCapacity();
-		strcpy(con[count].name, buffer);
-		con[count].name[strcspn(con[count].name,"\n")]=0;
 		
-		fgets(con[count].phone,sizeof(con[count].phone),fp);
-		con[count].phone[strcspn(con[count].phone,"\n")]=0;
-		
-		fgets(con[count].email,sizeof(con[count].email),fp);
-		con[count].email[strcspn(con[count].email,"\n")]=0;
-		
-		fgets(con[count].address,sizeof(con[count].address),fp);
-		con[count].address[strcspn(con[count].address,"\n")]=0;
-		
+		if(fgets(con[count].name, sizeof(con[count].name), fp) == NULL) break;
+		con[count].name[strcspn(con[count].name,"\n")] = 0;
+
+		if(fgets(con[count].phone, sizeof(con[count].phone), fp) == NULL) break;
+		con[count].phone[strcspn(con[count].phone,"\n")] = 0;
+
+		if(fgets(con[count].email, sizeof(con[count].email), fp) == NULL) break;
+		con[count].email[strcspn(con[count].email,"\n")] = 0;
+
+		if(fgets(con[count].address, sizeof(con[count].address), fp) == NULL) break;
+		con[count].address[strcspn(con[count].address,"\n")] = 0;
+
 		count++;
 	}
-	
+
 	fclose(fp);
 }
 
