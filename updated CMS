@@ -23,11 +23,20 @@ void LoadToFile();
 
 
 int isValidEmail(char *email) {
-	int i;
-	for(i=0; email[i]; i++){
-		if(email[i]=='@') return 1;
-	}
-	return 0;
+    char *at = strchr(email, '@');
+    if (!at || at == email || *(at+1) == '\0') {
+        return 0;
+    }
+
+    if (strchr(at + 1, '@')) {
+        return 0;
+    }
+
+    if (!strchr(at + 1, '.')) {
+        return 0;
+    }
+
+    return 1;
 }
 
 
@@ -186,7 +195,7 @@ void AddContact(){
 		fgets(con[count].email,sizeof(con[count].email),stdin);
 		con[count].email[strcspn(con[count].email,"\n")]=0;
 		if(!isValidEmail(con[count].email)) {
-			printf("Invalid email! Must contain '@'. Try again.\n");
+			printf("Invalid email! Please try again.\n");
 		}
 	}while(!isValidEmail(con[count].email));
 	
@@ -245,7 +254,9 @@ void UpdateContact(){
 			printf("Enter New Phone Number : ");
 			fgets(con[index].phone, sizeof(con[index].phone), stdin);
 			con[index].phone[strcspn(con[index].phone , "\n")] = 0;
-			if(!isValidPhone(con[index].phone)) printf("Invalid phone! Try again.\n");
+			if(!isValidPhone(con[index].phone)) {
+				printf("Invalid phone! Try again.\n");
+			}
 		}while(!isValidPhone(con[index].phone));
 	}
 	
@@ -254,7 +265,9 @@ void UpdateContact(){
 			printf("Enter New Email : ");
 			fgets(con[index].email, sizeof(con[index].email), stdin);
 			con[index].email[strcspn(con[index].email , "\n")] = 0;
-			if(!isValidEmail(con[index].email)) printf("Invalid email! Must contain '@'. Try again.\n");
+			if(!isValidEmail(con[index].email)) {
+				printf("Invalid email! Please try again.\n");
+			}
 		}while(!isValidEmail(con[index].email));
 	}
 	
